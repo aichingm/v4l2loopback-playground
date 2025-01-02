@@ -451,7 +451,7 @@ int send_texture(char* dev, char* image_path) {
 
     unsigned int progress = 0;
     while (1) {
-        progress++;        
+        progress++;
         // SETP 5.: Draw the shader(image) to the target_texture
         glBindFramebuffer(GL_FRAMEBUFFER, target_frame_buffer);
 
@@ -461,7 +461,7 @@ int send_texture(char* dev, char* image_path) {
         glUniform1i(glGetUniformLocation(program, "tex"), 0);
         // animate the grey value to see some action an the cam
         glUniform1f(glGetUniformLocation(program, "grey_value"), cos((progress%128)/128.*2*3.1415)+1);
-        
+
         /*for (size_t i = 0; i < (cos((progress%256)/256.*2*3.1415)+1) * 20; i++){
             printf("-");
         }
@@ -499,9 +499,9 @@ int send_texture(char* dev, char* image_path) {
         glTexCoord2f(OGLTX2);
         glVertex2f(OGLBQ3);
         glEnd();
-        
+
         // STEP 7.: Copy the target_texture back to the CPU
-       
+
         // we need to copy from the target_frame_buffer, not the window's frame buffer
         glBindFramebuffer(GL_FRAMEBUFFER, target_frame_buffer);
         glReadPixels(0, 0, image_width, image_height, GL_RGB, GL_UNSIGNED_BYTE, transfer_buffer);
@@ -529,10 +529,11 @@ void usage(){
     printf(
             "Usage: main <command>\n\n"
             "Commands:\n"
-            "   has-module                   check if v4l2loopback module is loaded\n"
-            "   list-devices                 list loopback devices\n"
-            "   is-loopback <device>         check is a given device is a loopback device\n"
-            "   send-img <device> <image>    check is a given device is a loopback device\n"
+            "   has-module                    check if v4l2loopback module is loaded\n"
+            "   list-devices                  list loopback devices\n"
+            "   is-loopback <device>          check is a given device is a loopback device\n"
+            "   send-img <device> <image>     send a static image to the loopback device\n"
+            "   send-texture <device> <image> read an image into an opengl texture, apply a shader and send it to a loopback device\n"
             );
 }
 
